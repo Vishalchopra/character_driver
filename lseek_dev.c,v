@@ -1,0 +1,190 @@
+head	1.7;
+access;
+symbols;
+locks
+	emblogic:1.7; strict;
+comment	@ * @;
+
+
+1.7
+date	2015.06.10.14.04.17;	author emblogic;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2015.06.10.13.55.28;	author emblogic;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2015.06.10.11.03.36;	author emblogic;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2015.06.05.17.54.16;	author emblogic;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2015.06.05.17.47.24;	author emblogic;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2015.06.05.17.45.06;	author emblogic;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2015.06.04.19.21.51;	author emblogic;	state Exp;
+branches;
+next	;
+
+
+desc
+@Sve the position of the offset in the struct file opeartion variable f_pos.
+@
+
+
+1.7
+log
+@*** empty log message ***
+@
+text
+@#include"header.h"
+#include"declaration.h"
+
+loff_t lseek_dev(struct file *fil, loff_t offset, int pos)
+{
+	struct DEV *lsdev;
+	#ifdef DEBUG
+	printk(KERN_INFO "Begin %s", __func__);
+	#endif
+	lsdev = fil->private_data;
+	switch(pos)
+	{
+		case 0:
+		#ifdef DEBUG
+		printk(KERN_INFO "SEEK_BEGIN %s", __func__);
+		#endif
+		fil->f_pos = offset;
+		break;
+
+		case 1:
+		#ifdef DEBUG
+		printk(KERN_INFO "SEEK_CURR %s", __func__);
+		#endif
+		fil->f_pos = fil->f_pos + offset;
+		break;
+
+		case 2:
+		#ifdef DEBUG
+		printk(KERN_INFO "SEEK_END %s", __func__);
+		#endif
+		if(fil->f_pos + offset > lsdev->data_size || fil->f_pos + offset <= 0)
+		{
+			data_size = 0;
+		}
+		else
+			fil->f_pos = lsdev->data_size + offset;
+		break;
+	}
+
+	#ifdef DEBUG
+	printk(KERN_INFO "END %s", __func__);
+	#endif
+	return 0;
+}
+@
+
+
+1.6
+log
+@*** empty log message ***
+@
+text
+@d6 1
+a9 1
+	struct DEV *lsdev;
+d31 6
+a36 1
+		fil->f_pos = lsdev->data_size + offset;
+@
+
+
+1.5
+log
+@*** empty log message ***
+@
+text
+@d9 2
+d31 1
+a31 1
+		fil->f_pos = offset;
+@
+
+
+1.4
+log
+@*** empty log message ***
+@
+text
+@d6 2
+a7 2
+	#ifdef DEBUB
+	printf(KERN_INFO "Begin %s", __func__);
+d12 2
+a13 2
+		#ifdef DEBUB
+		printf(KERN_INFO "SEEK_BEGIN %s", __func__);
+d19 2
+a20 2
+		#ifdef DEBUB
+		printf(KERN_INFO "SEEK_CURR %s", __func__);
+d26 2
+a27 2
+		#ifdef DEBUB
+		printf(KERN_INFO "SEEK_END %s", __func__);
+d33 2
+a34 2
+	#ifdef DEBUB
+	printf(KERN_INFO "END %s", __func__);
+@
+
+
+1.3
+log
+@*** empty log message ***
+@
+text
+@d22 1
+a22 1
+		fil->f_pos = offset;
+d29 1
+a29 1
+		fil->f_pos = fil->f_pos + offset;
+@
+
+
+1.2
+log
+@Udate for seek_curr.
+@
+text
+@d29 1
+a29 1
+		fil->f_pos = file->f_pos + offset;
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d9 8
+d18 14
+a31 1
+	fil->f_pos = offset;
+@
