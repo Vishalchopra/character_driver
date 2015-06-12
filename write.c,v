@@ -1,10 +1,30 @@
-head	1.44;
+head	1.48;
 access;
 symbols;
 locks
-	emblogic:1.44; strict;
+	emblogic:1.48; strict;
 comment	@ * @;
 
+
+1.48
+date	2015.06.11.16.50.50;	author emblogic;	state Exp;
+branches;
+next	1.47;
+
+1.47
+date	2015.06.11.16.49.29;	author emblogic;	state Exp;
+branches;
+next	1.46;
+
+1.46
+date	2015.06.11.14.10.24;	author emblogic;	state Exp;
+branches;
+next	1.45;
+
+1.45
+date	2015.06.11.13.56.41;	author emblogic;	state Exp;
+branches;
+next	1.44;
 
 1.44
 date	2015.06.07.15.42.47;	author emblogic;	state Exp;
@@ -231,7 +251,7 @@ desc
 @@
 
 
-1.44
+1.48
 log
 @*** empty log message ***
 @
@@ -249,6 +269,9 @@ ssize_t write_dev(struct file *filp, const char __user *ubuff, size_t size, loff
 	#ifdef DEBUG
 	printk(KERN_INFO "BEGIN.....%s\n", __func__);
 	#endif
+	//if(!down(&lsdev->sem))
+	//	return -ERESTARTSYS;
+	
 	ret = i = nocsw = 0;
 	no_qs = size / (qset_size * quantum_size);/*Calculation of number of struct qset*/
 	
@@ -307,6 +330,8 @@ ssize_t write_dev(struct file *filp, const char __user *ubuff, size_t size, loff
 	printk(KERN_INFO "._siz....%d\n", data_size);
 	#endif
 	filp->f_pos = nocsw;
+//	up(&lsdev->sem);
+	complete(&lsdev->comp);
 	return nocsw;
 //OUT:
 //	data_size = nocsw;
@@ -421,6 +446,55 @@ int create_quantum(int qun_siz, struct Qset *lsdev)
 OUT:
 	return -1;
 }
+@
+
+
+1.47
+log
+@*** empty log message ***
+@
+text
+@d76 1
+a76 1
+	complete(&lsdev->comp)
+@
+
+
+1.46
+log
+@*** empty log message ***
+@
+text
+@d14 3
+a16 1
+	down(&lsdev->sem);
+d75 2
+a76 1
+	up(&lsdev->sem);
+@
+
+
+1.45
+log
+@*** empty log message ***
+@
+text
+@d14 1
+a14 1
+//	down(&lsdev->sem);
+d73 1
+a73 1
+//	up(&lsdev->sem);
+@
+
+
+1.44
+log
+@*** empty log message ***
+@
+text
+@d14 1
+d73 1
 @
 
 

@@ -11,6 +11,9 @@ ssize_t write_dev(struct file *filp, const char __user *ubuff, size_t size, loff
 	#ifdef DEBUG
 	printk(KERN_INFO "BEGIN.....%s\n", __func__);
 	#endif
+	//if(!down(&lsdev->sem))
+	//	return -ERESTARTSYS;
+	
 	ret = i = nocsw = 0;
 	no_qs = size / (qset_size * quantum_size);/*Calculation of number of struct qset*/
 	
@@ -69,6 +72,8 @@ ssize_t write_dev(struct file *filp, const char __user *ubuff, size_t size, loff
 	printk(KERN_INFO "._siz....%d\n", data_size);
 	#endif
 	filp->f_pos = nocsw;
+//	up(&lsdev->sem);
+	complete(&lsdev->comp);
 	return nocsw;
 //OUT:
 //	data_size = nocsw;

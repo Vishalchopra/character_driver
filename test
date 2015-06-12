@@ -53,14 +53,17 @@ read
 echo "Waiting for the application to run"
 read
 
-make writer
+#make writer
 
-./writer nod 
-read 
+#./writer nod 
+#read 
 
-make reader
+#make reader
 
-./reader nod 
+#./reader nod 
+#gcc -o Reader_sem Reader_sem.c -lpthread
+##read
+##./Reader_sem nod
 read
  
 rmmod vish_ch

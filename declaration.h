@@ -11,6 +11,8 @@ struct DEV
 	struct Qset *qset;
 	int quantum_size, qset_size, device_size, data_size;
 	struct cdev c_dev;
+	struct semaphore sem;
+	struct completion comp;
 };
 
 extern struct DEV *sdev;

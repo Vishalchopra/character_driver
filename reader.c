@@ -12,15 +12,15 @@ int main(int argc, char *argv[])
 	{
 		perror("open");
 	}
-	count = read(fd, ch, 10);
-	printf("The number of bytes read %d   %d\n", count, strlen(ch));
-	printf("Data read is : %s\n", ch);
-	printf("Enter the whence:\n");
-	scanf("%d", &whence);
-	printf("Enter the position\n");
-	scanf("%d", &pos);
-	lseek(fd, pos, whence);
-	count = read(fd, ch, 10);
+	//count = read(fd, ch, 10);
+	//printf("The number of bytes read %d   %d\n", count, strlen(ch));
+	//printf("Data read is : %s\n", ch);
+	//printf("Enter the whence:\n");
+	//scanf("%d", &whence);
+//	printf("Enter the position\n");
+//	scanf("%d", &pos);
+//	lseek(fd, pos, whence);
+	count = read(fd, ch, 1024);
 	printf("The number of bytes read %d   %d\n", count, strlen(ch));
 	printf("Data read is : %s\n", ch);
 	

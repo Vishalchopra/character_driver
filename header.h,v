@@ -1,10 +1,15 @@
-head	1.5;
+head	1.6;
 access;
 symbols;
 locks
-	emblogic:1.5; strict;
+	emblogic:1.6; strict;
 comment	@ * @;
 
+
+1.6
+date	2015.06.11.13.56.40;	author emblogic;	state Exp;
+branches;
+next	1.5;
 
 1.5
 date	2015.05.14.10.57.19;	author emblogic;	state Exp;
@@ -37,7 +42,7 @@ desc
 @
 
 
-1.5
+1.6
 log
 @*** empty log message ***
 @
@@ -49,6 +54,7 @@ text
 #include<linux/fs.h>
 #include<linux/slab.h>
 #include<linux/cdev.h>
+#include<linux/semaphore.h>
 #include<linux/moduleparam.h>
 
 extern dev_t dev;
@@ -90,6 +96,15 @@ extern unsigned int majorno, nod, minorno, quantum_size, data_size, qset_size, d
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("vishchopra");
 MODULE_DESCRIPTION("Initialization");
+@
+
+
+1.5
+log
+@*** empty log message ***
+@
+text
+@d8 1
 @
 
 

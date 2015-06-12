@@ -21,19 +21,20 @@ loff_t lseek_dev(struct file *fil, loff_t offset, int pos)
 		#ifdef DEBUG
 		printk(KERN_INFO "SEEK_CURR %s", __func__);
 		#endif
-		fil->f_pos = fil->f_pos + offset;
+		if(fil->f_pos + offset > lsdev->data_size || fil->f_pos + offset <= 0)
+		{
+			data_size = 0;
+		}
+		else
+			fil->f_pos = fil->f_pos + offset;
 		break;
 
 		case 2:
 		#ifdef DEBUG
 		printk(KERN_INFO "SEEK_END %s", __func__);
 		#endif
-		if(fil->f_pos + offset > lsdev->data_size || fil->f_pos + offset <= 0)
-		{
-			data_size = 0;
-		}
-		else
-			fil->f_pos = lsdev->data_size + offset;
+		fil->f_pos = lsdev->data_size + offset;
+		
 		break;
 	}
 

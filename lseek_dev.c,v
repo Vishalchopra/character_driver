@@ -1,10 +1,30 @@
-head	1.7;
+head	1.11;
 access;
 symbols;
 locks
-	emblogic:1.7; strict;
+	emblogic:1.11; strict;
 comment	@ * @;
 
+
+1.11
+date	2015.06.11.16.49.30;	author emblogic;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2015.06.11.14.53.56;	author emblogic;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2015.06.11.14.52.34;	author emblogic;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2015.06.11.14.52.09;	author emblogic;	state Exp;
+branches;
+next	1.7;
 
 1.7
 date	2015.06.10.14.04.17;	author emblogic;	state Exp;
@@ -47,7 +67,7 @@ desc
 @
 
 
-1.7
+1.11
 log
 @*** empty log message ***
 @
@@ -75,19 +95,20 @@ loff_t lseek_dev(struct file *fil, loff_t offset, int pos)
 		#ifdef DEBUG
 		printk(KERN_INFO "SEEK_CURR %s", __func__);
 		#endif
-		fil->f_pos = fil->f_pos + offset;
+		if(fil->f_pos + offset > lsdev->data_size || fil->f_pos + offset <= 0)
+		{
+			data_size = 0;
+		}
+		else
+			fil->f_pos = fil->f_pos + offset;
 		break;
 
 		case 2:
 		#ifdef DEBUG
 		printk(KERN_INFO "SEEK_END %s", __func__);
 		#endif
-		if(fil->f_pos + offset > lsdev->data_size || fil->f_pos + offset <= 0)
-		{
-			data_size = 0;
-		}
-		else
-			fil->f_pos = lsdev->data_size + offset;
+		fil->f_pos = lsdev->data_size + offset;
+		
 		break;
 	}
 
@@ -96,6 +117,59 @@ loff_t lseek_dev(struct file *fil, loff_t offset, int pos)
 	#endif
 	return 0;
 }
+@
+
+
+1.10
+log
+@*** empty log message ***
+@
+text
+@d37 1
+@
+
+
+1.9
+log
+@*** empty log message ***
+@
+text
+@d29 1
+a29 1
+			fil->f_pos = lsdev->data_size + offset;
+d36 1
+a36 1
+		fil->f_pos = fil->f_pos + offset;
+@
+
+
+1.8
+log
+@*** empty log message ***
+@
+text
+@d36 1
+a36 1
+		fil->f_pos = fil->pos + offset;
+@
+
+
+1.7
+log
+@*** empty log message ***
+@
+text
+@d24 6
+a29 1
+		fil->f_pos = fil->f_pos + offset;
+d36 1
+a36 6
+		if(fil->f_pos + offset > lsdev->data_size || fil->f_pos + offset <= 0)
+		{
+			data_size = 0;
+		}
+		else
+			fil->f_pos = lsdev->data_size + offset;
 @
 
 

@@ -11,6 +11,9 @@ ssize_t reader_dev(struct file *filp, char __user *ubuff, size_t size, loff_t *l
 	#ifdef DEBUG
 	printk(KERN_INFO "BEGIN.....%s\n", __func__);
 	#endif
+	if(filp->f_pos == 0)
+	wait_for_completion(&lsdev->comp);
+	//down(&lsdev->sem);
 	#ifdef DEBUG
 	printk(KERN_INFO "loff_t = %d lsdev->data_size = %d f_pos = %d filp = %p data_size = %d\n", (int)*loff, lsdev->data_size, (int)filp->f_pos, &filp->f_pos, data_size);
 	#endif
@@ -94,12 +97,13 @@ ssize_t reader_dev(struct file *filp, char __user *ubuff, size_t size, loff_t *l
 	filp->f_pos = filp->f_pos + *loff;
 	data_size = lsdev->data_size - filp->f_pos;
 	#ifdef DEBUG
-	printk(KERN_INFO "nocsr = %d  f_pos = %d loff = %d\n", nocsr, (int)filp->f_pos, *loff);
+	printk(KERN_INFO "nocsr = %d f_pos = %d loff = %d data_size = %d\n", nocsr, (int)filp->f_pos, (int)*loff, data_size);
 	#endif
 
 	#ifdef DEBUG
 	printk(KERN_INFO "END.....%s\n", __func__);
 	#endif
+	//up(&lsdev->sem);
 	return nocsr;
 OUT:
 	#ifdef DEBUG

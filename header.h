@@ -5,6 +5,7 @@
 #include<linux/fs.h>
 #include<linux/slab.h>
 #include<linux/cdev.h>
+#include<linux/semaphore.h>
 #include<linux/moduleparam.h>
 
 extern dev_t dev;

@@ -64,7 +64,9 @@ static int __init start_ker_pro(void)
 		sdev[dvar].qset_size = qset_size;
 		sdev[dvar].device_size = device_size;
 		sdev[dvar].data_size = data_size;
-
+		
+		//sema_init(&sdev[dvar].sem, 1);
+		init_completion(&sdev[dvar].comp);
 		if( cdev_add(&sdev[dvar].c_dev, dev, nod) != 0)
 		{
 			#ifdef DEBUG

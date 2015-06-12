@@ -1,10 +1,45 @@
-head	1.56;
+head	1.63;
 access;
 symbols;
 locks
-	emblogic:1.56; strict;
+	emblogic:1.63; strict;
 comment	@ * @;
 
+
+1.63
+date	2015.06.11.16.50.52;	author emblogic;	state Exp;
+branches;
+next	1.62;
+
+1.62
+date	2015.06.11.16.49.30;	author emblogic;	state Exp;
+branches;
+next	1.61;
+
+1.61
+date	2015.06.11.15.03.06;	author emblogic;	state Exp;
+branches;
+next	1.60;
+
+1.60
+date	2015.06.11.15.01.06;	author emblogic;	state Exp;
+branches;
+next	1.59;
+
+1.59
+date	2015.06.11.14.58.07;	author emblogic;	state Exp;
+branches;
+next	1.58;
+
+1.58
+date	2015.06.11.14.10.25;	author emblogic;	state Exp;
+branches;
+next	1.57;
+
+1.57
+date	2015.06.11.13.56.44;	author emblogic;	state Exp;
+branches;
+next	1.56;
 
 1.56
 date	2015.06.10.14.11.21;	author emblogic;	state Exp;
@@ -292,7 +327,7 @@ desc
 @
 
 
-1.56
+1.63
 log
 @*** empty log message ***
 @
@@ -310,6 +345,9 @@ ssize_t reader_dev(struct file *filp, char __user *ubuff, size_t size, loff_t *l
 	#ifdef DEBUG
 	printk(KERN_INFO "BEGIN.....%s\n", __func__);
 	#endif
+	if(filp->f_pos == 0)
+	wait_for_completion(&lsdev->comp);
+	//down(&lsdev->sem);
 	#ifdef DEBUG
 	printk(KERN_INFO "loff_t = %d lsdev->data_size = %d f_pos = %d filp = %p data_size = %d\n", (int)*loff, lsdev->data_size, (int)filp->f_pos, &filp->f_pos, data_size);
 	#endif
@@ -392,13 +430,14 @@ ssize_t reader_dev(struct file *filp, char __user *ubuff, size_t size, loff_t *l
         *loff = nocsr;               
 	filp->f_pos = filp->f_pos + *loff;
 	data_size = lsdev->data_size - filp->f_pos;
-	#ifdef DEBUG
-	printk(KERN_INFO "nocsr = %d  f_pos = %d loff = %d\n", nocsr, (int)filp->f_pos, *loff);
-	#endif
+	//#ifdef DEBUG
+	printk(KERN_INFO "nocsr = %d ............................................................. f_pos = %d loff = %d data_size = %d\n", nocsr, (int)filp->f_pos, (int)*loff, data_size);
+//	#endif
 
 	#ifdef DEBUG
 	printk(KERN_INFO "END.....%s\n", __func__);
 	#endif
+	//up(&lsdev->sem);
 	return nocsr;
 OUT:
 	#ifdef DEBUG
@@ -408,6 +447,94 @@ OUT:
 	return nocsr;
 }
 
+@
+
+
+1.62
+log
+@*** empty log message ***
+@
+text
+@d14 1
+a14 1
+	if(f_pos == 0)
+@
+
+
+1.61
+log
+@*** empty log message ***
+@
+text
+@d14 3
+a16 1
+	down(&lsdev->sem);
+d106 1
+a106 1
+	up(&lsdev->sem);
+@
+
+
+1.60
+log
+@*** empty log message ***
+@
+text
+@d97 1
+a97 1
+	#ifdef DEBUG
+d99 1
+a99 1
+	#endif
+@
+
+
+1.59
+log
+@*** empty log message ***
+@
+text
+@d98 1
+a98 1
+	printk(KERN_INFO "nocsr = %d  f_pos = %d loff = %d data_size = %d\n", nocsr, (int)filp->f_pos, (int)*loff, data_size);
+@
+
+
+1.58
+log
+@*** empty log message ***
+@
+text
+@d98 1
+a98 1
+	printk(KERN_INFO "nocsr = %d  f_pos = %d loff = %d\n", nocsr, (int)filp->f_pos, (int)*loff);
+@
+
+
+1.57
+log
+@*** empty log message ***
+@
+text
+@d14 1
+a14 1
+	//down(&lsdev->sem);
+d104 1
+a104 1
+	//up(&lsdev->sem);
+@
+
+
+1.56
+log
+@*** empty log message ***
+@
+text
+@d14 1
+d98 1
+a98 1
+	printk(KERN_INFO "nocsr = %d  f_pos = %d loff = %d\n", nocsr, (int)filp->f_pos, *loff);
+d104 1
 @
 
 

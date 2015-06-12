@@ -1,0 +1,1 @@
+cmd_/home/vishal/DEVICE_DR/Chara_driver/Char_driver/vish_ch.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/vish_ch.ko /home/vishal/DEVICE_DR/Chara_driver/Char_driver/vish_ch.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/vish_ch.mod.o

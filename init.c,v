@@ -1,10 +1,25 @@
-head	1.8;
+head	1.11;
 access;
 symbols;
 locks
-	emblogic:1.8; strict;
+	emblogic:1.11; strict;
 comment	@ * @;
 
+
+1.11
+date	2015.06.11.16.48.36;	author emblogic;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2015.06.11.14.10.22;	author emblogic;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2015.06.11.13.56.31;	author emblogic;	state Exp;
+branches;
+next	1.8;
 
 1.8
 date	2015.05.14.12.01.00;	author emblogic;	state Exp;
@@ -51,9 +66,9 @@ desc
 @@
 
 
-1.8
+1.11
 log
-@Accept module para.
+@initialize the complete.
 @
 text
 @#include "header.h"
@@ -122,7 +137,9 @@ static int __init start_ker_pro(void)
 		sdev[dvar].qset_size = qset_size;
 		sdev[dvar].device_size = device_size;
 		sdev[dvar].data_size = data_size;
-
+		
+		//sema_init(&sdev[dvar].sem, 1);
+		init_completion(&sdev[dvar].comp);
 		if( cdev_add(&sdev[dvar].c_dev, dev, nod) != 0)
 		{
 			#ifdef DEBUG
@@ -140,6 +157,40 @@ OUT:
 }
 
 module_init(start_ker_pro);
+@
+
+
+1.10
+log
+@*** empty log message ***
+@
+text
+@d68 2
+a69 2
+		sema_init(&sdev[dvar].sem, 1);
+		
+@
+
+
+1.9
+log
+@*** empty log message ***
+@
+text
+@d68 1
+a68 1
+	//	sema_init(&sdev[dvar].sem, 1);
+@
+
+
+1.8
+log
+@Accept module para.
+@
+text
+@d67 3
+a69 1
+
 @
 
 

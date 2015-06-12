@@ -1,10 +1,20 @@
-head	1.11;
+head	1.13;
 access;
 symbols;
 locks
-	emblogic:1.11; strict;
+	emblogic:1.13; strict;
 comment	@ * @;
 
+
+1.13
+date	2015.06.11.16.49.27;	author emblogic;	state Exp;
+branches;
+next	1.12;
+
+1.12
+date	2015.06.11.13.56.40;	author emblogic;	state Exp;
+branches;
+next	1.11;
 
 1.11
 date	2015.06.04.19.17.55;	author emblogic;	state Exp;
@@ -66,9 +76,9 @@ desc
 @@
 
 
-1.11
+1.13
 log
-@Declaration of the lseek.
+@*** empty log message ***
 @
 text
 @//extern struct file_operations ofs;
@@ -84,6 +94,8 @@ struct DEV
 	struct Qset *qset;
 	int quantum_size, qset_size, device_size, data_size;
 	struct cdev c_dev;
+	struct semaphore sem;
+	struct completion comp;
 };
 
 extern struct DEV *sdev;
@@ -97,6 +109,24 @@ struct Qset* create_structqset(int);
 int create_qset(int, struct Qset *);
 int create_quantum(int, struct Qset *);
 //int write_to_quantum(struct Qset *, const char __user *);
+@
+
+
+1.12
+log
+@*** empty log message ***
+@
+text
+@d15 1
+@
+
+
+1.11
+log
+@Declaration of the lseek.
+@
+text
+@d14 1
 @
 
 
