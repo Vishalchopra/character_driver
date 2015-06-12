@@ -1,2 +1,0 @@
-/home/vishal/DEVICE_DR/Chara_driver/Char_driver/vish_ch.ko
-/home/vishal/DEVICE_DR/Chara_driver/Char_driver/init.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/clean.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/open_dev.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/close_dev.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/write.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/reader_dev.o /home/vishal/DEVICE_DR/Chara_driver/Char_driver/lseek_dev.o
